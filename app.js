@@ -10,7 +10,7 @@ var LocalStrategy=require("passport-local");
 var passportLocalMongoose=require("passport-local-mongoose");
 
 
-mongoose.connect("mongodb://localhost:27017/auth_demo_app", {
+mongoose.connect("mongodb+srv://nikhil:1234@cluster0-x9arn.mongodb.net/auth_demo_app", {
 useUnifiedTopology: true,
 useNewUrlParser: true,
 })
