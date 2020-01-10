@@ -33,8 +33,9 @@ app.set("view engine", "ejs");
 
 app.use(methodOverride("_method"));
 
-///////////////////////////////////////////////////////////////////////////
+
 // Passport setup 
+
 app.use(require('express-session')({
     secret: "Once again rusty wins the cutest dog!",
     resave: false,
@@ -55,7 +56,6 @@ app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
     next();
 });
-////////////////////////////////////////////////////////////////////
 
 app.get("/", function(req, res) {
     res.render("landing");
@@ -82,9 +82,8 @@ app.get("/alumni", function(req, res) {
 
 });
 
-//////////////////////////////////
 //SEARCH Alumni
-//////////////////////////////
+
 app.get("/alumni/search", function(req, res) {
     res.render("search.ejs");
 });
@@ -159,9 +158,8 @@ app.post("/search", function(req, res) {
 
 });
 
-//======================================================
 //Send Email ROUTES
-//=======================================================
+
 app.get("/alumni/:id/email", function(req, res) {
 
     Alumni.findById(req.params.id, function(err, foundalumni) {
@@ -201,10 +199,10 @@ app.post("/alumni/:id/email", function(req, res) {
         } else {
             res.redirect("/alumni/" + foundalumni._id);
 
-            var string = 'kumaramankeshu@gmail.com' + ', ' + 'sonalranisr88@gmail.com';
+            var string = 'rk915582@gmail.com' + ', ' + 'ranbirdka123@gmail.com';
 
             var mailOptions = {
-                from: 'kumaramankeshu@gmail.com',
+                from: 'rk915582@gmail.com',
                 to: foundalumni.email,
                 subject: subject,
                 text: text
@@ -222,10 +220,8 @@ app.post("/alumni/:id/email", function(req, res) {
     });
 });
 
-
-//======================================================
 //Send Message ROUTES
-//======================================================
+
 app.get("/alumni/:id/message", function(req, res) {
     Alumni.findById(req.params.id, function(err, foundalumni) {
         if (err) {
@@ -243,7 +239,7 @@ app.get("/alumni/:id/message", function(req, res) {
 app.post("/alumni/:id/message", function(req, res) {
 
 
-    var sender = '+91 72508 91797';
+    var sender = '+91 9953972508';
 
     var message = req.body.text;
     // Details about Visitor $ { name }
@@ -369,9 +365,9 @@ app.get("/alumni/:id", function(req, res) {
     });
 });
 
-//======================================================
+
 //EDIT ROUTES
-//=======================================================
+
 app.get("/alumni/:id/edit", checkAuthorization, function(req, res) {
 
     Alumni.findById(req.params.id, function(err, foundalumni) {
@@ -385,11 +381,8 @@ app.get("/alumni/:id/edit", checkAuthorization, function(req, res) {
 
 });
 
-
-
-//======================================================
 //UPDATE ROUTES
-//=======================================================
+
 app.put("/alumni/:id", checkAuthorization, function(req, res) {
     Alumni.findByIdAndUpdate(req.params.id, req.body.alumni, function(err, updatedalumni) {
         if (err) {
@@ -400,12 +393,6 @@ app.put("/alumni/:id", checkAuthorization, function(req, res) {
     });
 });
 
-
-
-
-//======================================================
-//DESTROY ROUTE
-//=======================================================
 app.delete("/alumni/:id", checkAuthorization, function(req, res) {
     Alumni.findByIdAndRemove(req.params.id, function(err, newalumni) {
         if (err) {
@@ -439,9 +426,8 @@ function checkAuthorization(req, res, next) {
     }
 }
 
-//======================================================
+
 //AUTH ROUTES
-//=======================================================
 
 app.get("/register", function(req, res) {
     res.render("register");

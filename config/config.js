@@ -11,6 +11,6 @@ config.mlab = {
 };
 
 config.port = 3000;
-config.address = "Noida, Uttar Pradesh 201309";
+config.address = "Bihar, Patna";
 
 module.exports = config;
