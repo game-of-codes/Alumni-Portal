@@ -1,9 +1,86 @@
 <!DOCTYPE html>
 <html>
 <head>
+<style>
+body {
+  font-family: "Montserrat";
+  text-align: center;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Ubuntu";
+}
+h1, .bname{
+  font-weight: bold;
+}
+.navbar{
+  position:fixed;
+  z-index:1;
+}
+.logo {
+  height:2.7rem;
+  width:2.7rem;
+}
+.bname {
+  padding:0rem 0rem 0rem 1rem;
+  font-size:2rem;
+  font-family: "Montserrat";
+}
+
+.imgbox{
+  background-color:#cce0ff;
+  position:relative;
+  top:5rem;
+  text-align:center;
+}
+.carimg{
+  height:30rem;
+  width:45rem;
+  border-radius:1rem;
+  margin-top:2rem;
+}
+@media (max-width:1000px)and (min-width:430px){
+  .carimg{
+    height:19rem;
+    width:19rem;
+  }
+  .imgbox{
+    height:37rem;
+  }
+}
+@media (max-width:430px){
+    .bname{
+        padding:0px;
+        font-weight:400px;
+        font-size:19px;
+    }
+    .logo{
+      height:1.4rem;
+      width:1.4rem;
+    }
+    .carimg{
+        height:15rem;
+        width:16rem;
+    }
+    .imgbox{
+    height:25.8rem;
+  }
+    .cardet{
+     font-size:1.4rem;
+    }
+}
+
+.updates{
+  position:relative;
+  top:8rem;
+  height:30rem;
+  background-color:red;
+}
+
+</style>
+
   <!--Bootstrap-->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-  <link rel="stylesheet" href="./styles.css">
   <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
