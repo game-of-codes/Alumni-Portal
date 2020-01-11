@@ -1,14 +1,15 @@
 var config = {};
 
 config.twilio = {
-    authToken: '25692b123fc4055a3d3eab2a28d4f317',
-    accountSid: 'AC3ccfcfaab9c7b846dbdea2670d5f1b07'
+    authToken: 'cf372eed6656f8d0fd969859f92c6068',
+    accountSid: 'ACcf91ca7086eef8fd5c3caed0147c3f89'
 };
 
 config.mlab = {
-    username: 'rk915582@gmail.com',
-    password: 'raka9155'
+    username: 'testing.sih.web@gmail.com',
+    password: 'theteam@1234'
 };
+
 
 config.port = 3000;
 config.address = "Bihar, Patna";
