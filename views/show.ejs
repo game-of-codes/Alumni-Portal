@@ -72,7 +72,7 @@
                                 <p>
                                     <em>Submitted By: <%= (alumni.author.name ||  alumni.author.username) %></em>
                                 </p>
-                                <% if(currentUser && alumni.author.id && alumni.author.id.equals(currentUser._id)){ %>
+                                <% if(currentUser && alumni.author.id && alumni.author.id.equals(currentUser._id) || currentUser && alumni && currentUser.isAdmin){ %>
                                     <a class="btn btn-xs btn-warning" href="/alumni/<%= alumni._id %>/edit">Edit</a>
                                     <form id="delete" action="/alumni/<%= alumni._id %>?_method=DELETE" method="POST">
                                         <button class="btn btn-xs btn-danger">Delete</button>

@@ -19,10 +19,11 @@ mongoose.connect("mongodb+srv://nikhil:1234@cluster0-x9arn.mongodb.net/auth_demo
     useUnifiedTopology: true,
     useNewUrlParser: true,
 })
-    .then(() => console.log('DB Connected!'))
+    .then(() => console.log('DB Connected! '))
     .catch(err => {
         console.log("DB Connection Error: ${err.message}");
     });
+
 
 app.use(bodyParser.urlencoded({
     extended: true
@@ -52,14 +53,15 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.locals.currentUser = req.user;
     next();
 });
 
-app.get("/", function(req, res) {
+app.get("/", function (req, res) {
     res.render("landing");
 });
+
 
 // Alumni.remove({}, function(err) {
 //     if (err) {
@@ -68,9 +70,9 @@ app.get("/", function(req, res) {
 // });
 
 //INDEX ROUTE - show all alumnis
-app.get("/alumni", function(req, res) {
+app.get("/alumni", function (req, res) {
     // Get all alumnis from DB
-    Alumni.find({}, function(err, allalumni) {
+    Alumni.find({}, function (err, allalumni) {
         if (err) {
             console.log(err);
         } else {
@@ -79,19 +81,17 @@ app.get("/alumni", function(req, res) {
             }); //data + name passing in
         }
     });
-
 });
 
 //SEARCH Alumni
 
-app.get("/alumni/search", function(req, res) {
+app.get("/alumni/search", function (req, res) {
     res.render("search.ejs");
 });
 
-app.post("/search", function(req, res) {
+app.post("/search", function (req, res) {
 
     var alumni = req.body;
-
 
     var query, query2, query3;
     var name, batch;
@@ -125,7 +125,7 @@ app.post("/search", function(req, res) {
     //console.log(college + " HEheh");
     // res.send("HI MAN THIS IS SEARCH");
 
-    Alumni.find({ name: query, batch: query2, college: query3, branch: query4 }, function(err, alumni) {
+    Alumni.find({ name: query, batch: query2, college: query3, branch: query4 }, function (err, alumni) {
 
         if (err) {
             console.log(err);
@@ -133,7 +133,7 @@ app.post("/search", function(req, res) {
 
         } else {
 
-            alumni.forEach(function(alumni_) {
+            alumni.forEach(function (alumni_) {
                 // console.log(alumni_.name + " HAHA");
             });
 
@@ -141,8 +141,6 @@ app.post("/search", function(req, res) {
         }
 
     });
-
-
 
     // Alumni.find({ title: { $regex: new RegExp(title1) } }, function(err, blog) {
     // if (err) {
@@ -155,14 +153,13 @@ app.post("/search", function(req, res) {
 
     //  db.products.find( { sku: { $regex: /789$/ } } )
 
-
 });
 
 //Send Email ROUTES
 
-app.get("/alumni/:id/email", function(req, res) {
+app.get("/alumni/:id/email", function (req, res) {
 
-    Alumni.findById(req.params.id, function(err, foundalumni) {
+    Alumni.findById(req.params.id, function (err, foundalumni) {
         if (err) {
             console.log(err);
         } else {
@@ -177,9 +174,7 @@ app.get("/alumni/:id/email", function(req, res) {
     // res.render("email.ejs", { alumni: alumni });
 });
 
-
-
-app.post("/alumni/:id/email", function(req, res) {
+app.post("/alumni/:id/email", function (req, res) {
     //res.render("email.ejs");
 
     var transporter = nodemailer.createTransport({
@@ -193,7 +188,7 @@ app.post("/alumni/:id/email", function(req, res) {
     var subject = req.body.Subject;
     var text = req.body.text;
 
-    Alumni.findById(req.params.id, function(err, foundalumni) {
+    Alumni.findById(req.params.id, function (err, foundalumni) {
         if (err) {
             console.log(err);
         } else {
@@ -206,10 +201,10 @@ app.post("/alumni/:id/email", function(req, res) {
                 to: foundalumni.email,
                 subject: subject,
                 text: text
-                    // html: '<h1>Hi Smartherd</h1><p>Your Messsage</p>'        
+                // html: '<h1>Hi Smartherd</h1><p>Your Messsage</p>'        
             };
 
-            transporter.sendMail(mailOptions, function(error, info) {
+            transporter.sendMail(mailOptions, function (error, info) {
                 if (error) {
                     console.log(error);
                 } else {
@@ -222,8 +217,8 @@ app.post("/alumni/:id/email", function(req, res) {
 
 //Send Message ROUTES
 
-app.get("/alumni/:id/message", function(req, res) {
-    Alumni.findById(req.params.id, function(err, foundalumni) {
+app.get("/alumni/:id/message", function (req, res) {
+    Alumni.findById(req.params.id, function (err, foundalumni) {
         if (err) {
             console.log(err);
         } else {
@@ -234,12 +229,12 @@ app.get("/alumni/:id/message", function(req, res) {
             });
         }
     });
-
 });
-app.post("/alumni/:id/message", function(req, res) {
+
+app.post("/alumni/:id/message", function (req, res) {
 
 
-    var sender = '+91 9953972508';
+    var sender = '+12016769896';
 
     var message = req.body.text;
     // Details about Visitor $ { name }
@@ -250,41 +245,43 @@ app.post("/alumni/:id/message", function(req, res) {
     // Visiting ID: $ { id }
     // `;
 
-    Alumni.findById(req.params.id, function(err, foundalumni) {
+
+    Alumni.findById(req.params.id, function (err, foundalumni) {
         if (err) {
             console.log(err);
         } else {
             res.redirect("/alumni/" + foundalumni._id);
             receiver = foundalumni.mobile;
             client.messages.create({
-                    to: receiver,
-                    from: sender,
-                    body: message
-                })
+                to: receiver,
+                from: sender,
+                body: message
+            })
                 .then(message => console.log(`
                 Checkin SMS sent to Host: $ { foundalumni.name }
                 ` + message.sid))
                 .catch((error) => {
                     console.log(error);
                 });
-
         }
     })
-
 });
 
 //CREATE - add new alumni to database
-app.post("/alumni", isLoggedIn, function(req, res) {
+app.post("/alumni", isLoggedIn, function (req, res) {
+
     //get data from form and add to thriftstore array
 
-    request('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAPzLdcKEPCe4SQf3-cdSnq5vmh_MRaHCs' +
 
+    request('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAPzLdcKEPCe4SQf3-cdSnq5vmh_MRaHCs' +
         '&address=' + encodeURIComponent(req.body.address),
-        function(error, response, body) {
+        function (error, response, body) {
             if (error) {
                 console.log('error!', error);
             } else {
+
                 var data = JSON.parse(body);
+
                 // console.log('data: ', util.inspect(data, { showHidden: false, depth: null }))
 
                 if (data.results && data.results[0] && ["address_components"]) {
@@ -320,6 +317,7 @@ app.post("/alumni", isLoggedIn, function(req, res) {
                     country: country,
                     mobile: req.body.mobile,
                     email: req.body.email,
+                    image: req.body.image,
 
                     author: {
                         id: req.user._id,
@@ -327,9 +325,7 @@ app.post("/alumni", isLoggedIn, function(req, res) {
                         name: req.user.name
                     }
                 };
-
-
-                Alumni.create(newalumni, function(err, newlyCreated) {
+                Alumni.create(newalumni, function (err, newlyCreated) {
                     if (err) {
                         console.log(err);
                     } else {
@@ -338,22 +334,20 @@ app.post("/alumni", isLoggedIn, function(req, res) {
                     }
                 });
             }
-
         });
 
 });
 
 
-
-//NEW - show form to create new campground 
-app.get("/alumni/new", isLoggedIn, function(req, res) {
+//NEW - show form to create 
+app.get("/alumni/new", isLoggedIn, function (req, res) {
     res.render("new.ejs")
 });
 
 //SHOW - shows more info about campground selected - to be declared after NEW to not overwrite
-app.get("/alumni/:id", function(req, res) {
+app.get("/alumni/:id", function (req, res) {
     //find the campground with the provided ID
-    Alumni.findById(req.params.id, function(err, foundalumni) {
+    Alumni.findById(req.params.id, function (err, foundalumni) {
         if (err) {
             console.log(err);
         } else {
@@ -365,12 +359,11 @@ app.get("/alumni/:id", function(req, res) {
     });
 });
 
+///EDIT ROUTES 
 
-//EDIT ROUTES
+app.get("/alumni/:id/edit", checkAuthorization, function (req, res) {
 
-app.get("/alumni/:id/edit", checkAuthorization, function(req, res) {
-
-    Alumni.findById(req.params.id, function(err, foundalumni) {
+    Alumni.findById(req.params.id, function (err, foundalumni) {
         if (err) {
             console.log(err);
 
@@ -383,8 +376,8 @@ app.get("/alumni/:id/edit", checkAuthorization, function(req, res) {
 
 //UPDATE ROUTES
 
-app.put("/alumni/:id", checkAuthorization, function(req, res) {
-    Alumni.findByIdAndUpdate(req.params.id, req.body.alumni, function(err, updatedalumni) {
+app.put("/alumni/:id", checkAuthorization, function (req, res) {
+    Alumni.findByIdAndUpdate(req.params.id, req.body.alumni, function (err, updatedalumni) {
         if (err) {
             res.redirect("/alumni");
         } else {
@@ -393,8 +386,8 @@ app.put("/alumni/:id", checkAuthorization, function(req, res) {
     });
 });
 
-app.delete("/alumni/:id", checkAuthorization, function(req, res) {
-    Alumni.findByIdAndRemove(req.params.id, function(err, newalumni) {
+app.delete("/alumni/:id", checkAuthorization, function (req, res) {
+    Alumni.findByIdAndRemove(req.params.id, function (err, newalumni) {
         if (err) {
             res.redirect("/alumni");
 
@@ -406,7 +399,7 @@ app.delete("/alumni/:id", checkAuthorization, function(req, res) {
 
 function checkAuthorization(req, res, next) {
     if (req.isAuthenticated()) {
-        Alumni.findById(req.params.id, function(err, foundalumni) {
+        Alumni.findById(req.params.id, function (err, foundalumni) {
             if (err) {
                 res.redirect("back");
 
@@ -429,23 +422,28 @@ function checkAuthorization(req, res, next) {
 
 //AUTH ROUTES
 
-app.get("/register", function(req, res) {
+app.get("/register", function (req, res) {
     res.render("register");
 
 });
 
 //Handle user sign up
-app.post("/register", function(req, res) {
+
+app.post("/register", function (req, res) {
 
     var newuser = new User({ username: req.body.username });
 
-    User.register(newuser, req.body.password, function(err, user) {
+    if (req.body.adminCode === 'alumniCollege123') {
+        newuser.isAdmin = true;
+    }
+
+    User.register(newuser, req.body.password, function (err, user) {
         if (err) {
             console.log(err);
             return res.render("register");
 
         }
-        passport.authenticate("local")(req, res, function() {
+        passport.authenticate("local")(req, res, function () {
             res.redirect("/alumni");
 
         });
@@ -457,7 +455,7 @@ app.post("/register", function(req, res) {
 
 //LOGIN routes
 
-app.get("/login", function(req, res) {
+app.get("/login", function (req, res) {
     res.render("login");
 
 });
@@ -467,12 +465,12 @@ app.post("/login", passport.authenticate("local", {
     successRedirect: "/alumni",
     failureRedirect: "/login"
 
-}), function(req, res) {
+}), function (req, res) {
 
 });
 
 //LOGOUT ROUTE
-app.get("/logout", function(req, res) {
+app.get("/logout", function (req, res) {
     req.logout();
     res.redirect("/alumni");
 })
@@ -486,6 +484,6 @@ function isLoggedIn(req, res, next) {
     res.redirect("/login");
 }
 
-app.listen(3000, function() {
+app.listen(3000, function () {
     console.log(" Jai Mata Di Alumni server has started!");
 });
