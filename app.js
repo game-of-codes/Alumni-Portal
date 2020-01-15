@@ -35,7 +35,7 @@ app.set("view engine", "ejs");
 app.use(methodOverride("_method"));
 
 
-// Passport setup 
+// Passport setup
 
 app.use(require('express-session')({
     secret: "Once again rusty wins the cutest dog!",
@@ -68,6 +68,48 @@ app.get("/", function (req, res) {
 //         console.log(err);
 //     }
 // });
+
+//PAGES routes
+app.get("/StudentScholarships",function(req,res){
+  res.render("StudentScholarships");
+});
+app.get("/YFA",function(req,res){
+  res.render("YFA");
+});
+app.get("/HATS",function(req,res){
+  res.render("HATS");
+});
+app.get("/iCAN",function(req,res){
+  res.render("iCAN");
+});
+app.get("/FinancialAid",function(req,res){
+  res.render("financial");
+});
+app.get("/RIG",function(req,res){
+  res.render("RIG");
+});
+app.get("/lifemem",function(req,res){
+  res.render("lifemem");
+});
+app.get("/reunion",function(req,res){
+  res.render("reunion");
+});
+app.get("/HATS",function(req,res){
+  res.render("HATS");
+});
+app.get("/fundamental",function(req,res){
+  res.render("fundamental");
+});
+app.get("/chapters",function(req,res){
+  res.render("chapters");
+});
+app.get("/classgro",function(req,res){
+  res.render("classgro");
+});
+app.get("/calendar",function(req,res){
+  res.render("calendar")
+});
+
 
 //INDEX ROUTE - show all alumnis
 app.get("/alumni", function (req, res) {
@@ -201,7 +243,7 @@ app.post("/alumni/:id/email", function (req, res) {
                 to: foundalumni.email,
                 subject: subject,
                 text: text
-                // html: '<h1>Hi Smartherd</h1><p>Your Messsage</p>'        
+                // html: '<h1>Hi Smartherd</h1><p>Your Messsage</p>'
             };
 
             transporter.sendMail(mailOptions, function (error, info) {
@@ -339,7 +381,7 @@ app.post("/alumni", isLoggedIn, function (req, res) {
 });
 
 
-//NEW - show form to create 
+//NEW - show form to create
 app.get("/alumni/new", isLoggedIn, function (req, res) {
     res.render("new.ejs")
 });
@@ -359,7 +401,7 @@ app.get("/alumni/:id", function (req, res) {
     });
 });
 
-///EDIT ROUTES 
+///EDIT ROUTES
 
 app.get("/alumni/:id/edit", checkAuthorization, function (req, res) {
 
