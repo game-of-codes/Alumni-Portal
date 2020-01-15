@@ -17,6 +17,8 @@ const pug = require('pug');
 const _ = require('lodash');
 const path = require('path');
 
+app.use(express.static('./Template'));
+
 
 mongoose.connect("mongodb+srv://nikhil:1234@cluster0-x9arn.mongodb.net/auth_demo_app", {
     useUnifiedTopology: true,
