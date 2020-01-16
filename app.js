@@ -257,6 +257,7 @@ app.post("/search", function (req, res) {
 
         if (err) {
             console.log(err);
+
             console.log("OOPS there's an error");
 
         } else {
@@ -457,7 +458,7 @@ app.post("/alumni", isLoggedIn, function (req, res) {
                     if (err) {
                         console.log(err);
                     } else {
-                        req.flash("success", "Welcome to Alumni Portal " + alumni.name);
+                        console.log(newlyCreated);
                         res.redirect("/alumni");
                     }
                 });
@@ -569,13 +570,11 @@ app.post("/register", function (req, res) {
 
     User.register(newuser, req.body.password, function (err, user) {
         if (err) {
-            req.flash("error", err.message);
             console.log(err);
             return res.render("register");
 
         }
         passport.authenticate("local")(req, res, function () {
-            req.flash("success", "Welcome to Alumni Portal " + alumni.name);
             res.redirect("/alumni");
 
  
