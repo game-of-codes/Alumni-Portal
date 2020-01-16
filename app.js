@@ -2,6 +2,7 @@ var express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
+    flash       = require("connect-flash"),
     methodOverride = require("method-override"),
     LocalStrategy = require("passport-local"),
     passport = require("passport"),
@@ -12,7 +13,12 @@ var express = require("express"),
     twilio = require('twilio');
 var config = require('./config/config.js');
 var client = new twilio(config.twilio.accountSid, config.twilio.authToken);
+//change
+const pug = require('pug');
+const _ = require('lodash');
+const path = require('path');
 
+app.use(express.static('./Template'));
 
 
 mongoose.connect("mongodb+srv://nikhil:1234@cluster0-x9arn.mongodb.net/auth_demo_app", {
@@ -24,7 +30,7 @@ mongoose.connect("mongodb+srv://nikhil:1234@cluster0-x9arn.mongodb.net/auth_demo
         console.log("DB Connection Error: ${err.message}");
     });
 
-
+    app.use(flash());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -34,6 +40,84 @@ app.set("view engine", "ejs");
 
 app.use(methodOverride("_method"));
 
+//change donate
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}))
+app.use(express.static(path.join(__dirname, 'public/')));
+
+const {Donor} = require('./models/donor')
+const {initializePayment, verifyPayment} = require('./config/paystack')(request);
+
+app.get('/donate',(req, res) => {
+    res.render('index1.pug');
+});
+app.post('/paystack/pay', (req, res) => {
+    const form = _.pick(req.body,['amount','email','full_name']);
+    form.metadata = {
+        full_name : form.full_name
+    }
+    form.amount *= 100;
+    
+    initializePayment(form, (error, body)=>{
+        if(error){
+            //handle errors
+            console.log(error);
+            return res.redirect('/error.pug')
+            return;
+        }
+        response = JSON.parse(body);
+        res.redirect(response.data.authorization_url)
+    });
+});
+
+app.get('/paystack/callback', (req,res) => {
+    const ref = req.query.reference;
+    verifyPayment(ref, (error,body)=>{
+        if(error){
+            //handle errors appropriately
+            console.log(error)
+            return res.redirect('/error.pug');
+        }
+        response = JSON.parse(body);        
+
+        const data = _.at(response.data, ['reference', 'amount','customer.email', 'metadata.full_name']);
+
+        [reference, amount, email, full_name] =  data;
+        
+        newDonor = {reference, amount, email, full_name}
+
+        const donor = new Donor(newDonor)
+
+        donor.save().then((donor)=>{
+            if(!donor){
+                return res.redirect('/error.pug');
+            }
+            res.redirect('/receipt/'+donor._id);
+        }).catch((e)=>{
+            res.redirect('/error.pug');
+        })
+    })
+});
+
+app.get('/receipt/:id', (req, res)=>{
+    const id = req.params.id;
+    Donor.findById(id).then((donor)=>{
+        if(!donor){
+            //handle error when the donor is not found
+            res.redirect('/error.pug')
+        }
+        res.render('success.pug',{donor});
+    }).catch((e)=>{
+        res.redirect('/error.pug')
+    })
+})
+
+app.get('/error', (req, res)=>{
+    res.render('error.pug');
+})
+
+
+//change ended
 
 // Passport setup
 
@@ -55,6 +139,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function (req, res, next) {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+   res.locals.success = req.flash("success");
     next();
 });
 
@@ -171,6 +257,7 @@ app.post("/search", function (req, res) {
 
         if (err) {
             console.log(err);
+
             console.log("OOPS there's an error");
 
         } else {
@@ -423,6 +510,7 @@ app.put("/alumni/:id", checkAuthorization, function (req, res) {
         if (err) {
             res.redirect("/alumni");
         } else {
+            req.flash("success", "Profile Successfully Updated! ");
             res.redirect("/alumni/" + req.params.id);
         }
     });
@@ -434,6 +522,7 @@ app.delete("/alumni/:id", checkAuthorization, function (req, res) {
             res.redirect("/alumni");
 
         } else {
+            req.flash("success", "Profile Successfully Deleated! ");
             res.redirect("/alumni");
         }
     });
@@ -488,6 +577,7 @@ app.post("/register", function (req, res) {
         passport.authenticate("local")(req, res, function () {
             res.redirect("/alumni");
 
+ 
         });
 
     });
@@ -514,6 +604,7 @@ app.post("/login", passport.authenticate("local", {
 //LOGOUT ROUTE
 app.get("/logout", function (req, res) {
     req.logout();
+    req.flash("success", "Logged you out!");
     res.redirect("/alumni");
 })
 
@@ -523,6 +614,7 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
+    req.flash("error", "You need to be logged in to do that");
     res.redirect("/login");
 }
 
