@@ -17,11 +17,19 @@
             </center>
             <p></p>
 
-
+            <% if(currentUser && currentUser.name!==null){ %>
             <p>
-                <a class="btn btn-primary btn-large" href="/alumni/new">ADD YOUR PROFILE</a>
+                <a class="btn btn-primary btn-large" href="/alumni">PROFILE UPDATED</a>
             </p>
 
+            <% } else{ %>
+                <p>
+                <a class="btn btn-primary btn-large" href="/alumni/new">ADD YOUR PROFILE</a>
+
+                </p>
+            <%}%>
+
+            
             <p>
                 <a class="btn btn-primary btn-large" href="/alumni/search">SEARCH ALUMNI</a>
             </p>
