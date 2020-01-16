@@ -2,6 +2,7 @@ var express = require("express"),
     app = express(),
     bodyParser = require("body-parser"),
     mongoose = require("mongoose"),
+    flash       = require("connect-flash"),
     methodOverride = require("method-override"),
     LocalStrategy = require("passport-local"),
     passport = require("passport"),
@@ -27,7 +28,7 @@ mongoose.connect("mongodb+srv://nikhil:1234@cluster0-x9arn.mongodb.net/auth_demo
         console.log("DB Connection Error: ${err.message}");
     });
 
-
+    app.use(flash());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
@@ -136,6 +137,8 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(function (req, res, next) {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+   res.locals.success = req.flash("success");
     next();
 });
 
@@ -452,7 +455,7 @@ app.post("/alumni", isLoggedIn, function (req, res) {
                     if (err) {
                         console.log(err);
                     } else {
-                        console.log(newlyCreated);
+                        req.flash("success", "Welcome to Alumni Portal " + alumni.name);
                         res.redirect("/alumni");
                     }
                 });
@@ -504,6 +507,7 @@ app.put("/alumni/:id", checkAuthorization, function (req, res) {
         if (err) {
             res.redirect("/alumni");
         } else {
+            req.flash("success", "Profile Successfully Updated! ");
             res.redirect("/alumni/" + req.params.id);
         }
     });
@@ -515,6 +519,7 @@ app.delete("/alumni/:id", checkAuthorization, function (req, res) {
             res.redirect("/alumni");
 
         } else {
+            req.flash("success", "Profile Successfully Deleated! ");
             res.redirect("/alumni");
         }
     });
@@ -562,13 +567,16 @@ app.post("/register", function (req, res) {
 
     User.register(newuser, req.body.password, function (err, user) {
         if (err) {
+            req.flash("error", err.message);
             console.log(err);
             return res.render("register");
 
         }
         passport.authenticate("local")(req, res, function () {
+            req.flash("success", "Welcome to Alumni Portal " + alumni.name);
             res.redirect("/alumni");
 
+ 
         });
 
     });
@@ -595,6 +603,7 @@ app.post("/login", passport.authenticate("local", {
 //LOGOUT ROUTE
 app.get("/logout", function (req, res) {
     req.logout();
+    req.flash("success", "Logged you out!");
     res.redirect("/alumni");
 })
 
@@ -604,6 +613,7 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
         return next();
     }
+    req.flash("error", "You need to be logged in to do that");
     res.redirect("/login");
 }
 
