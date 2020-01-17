@@ -1,24 +1,40 @@
 <% include partials/header %>
+<html>
 
-<% if(currentUser && currentUser.isAdmin) { %>
-    <h1>Welcome ADMIN !!</h1>
+<body>
 
-<% } %> 
+    <% if(currentUser && currentUser.isAdmin) { %>
+    <h1> You are Admin !!</h1>
 
-<div class="container">
+    <% } %>
+    <div id="fb-root"></div>
+    <script async defer crossorigin="anonymous"
+        src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v5.0"></script>
 
-    <header class="jumbotron">
-        <div class="container">
-            <center>
-                <h1>Welcome to ALUMNIS Directory</h1>
-            </center>
-            <center>
-                <h2> View our alumnis </h2>
-            </center>
-            
-            <p>
-                <a class="btn btn-primary btn-large" href="/alumni/new">ADD YOUR PROFILE</a>
-            </p>
+    <div class="container">
+
+        <header class="jumbotron">
+            <div class="container">
+                <center>
+                    <h1>Welcome to ALUMNIS Directory</h1>
+                </center>
+                <center>
+                    <h2> View our alumnis </h2>
+                </center>
+                <p></p>
+
+                <% if(currentUser && currentUser.name!==null){ %>
+                <p>
+                    <a class="btn btn-primary btn-large" href="/alumni">PROFILE UPDATED</a>
+                </p>
+
+                <% } else{ %>
+                <p>
+                    <a class="btn btn-primary btn-large" href="/alumni/new">ADD YOUR PROFILE</a>
+
+                </p>
+                <%}%>
+
             
             <p>
                 <a class="btn btn-primary btn-large" href="/alumni/search">SEARCH ALUMNI</a>
@@ -40,38 +56,65 @@
 
     <div class="row text-center" style="display:flex; flex-wrap: wrap;">
         <% alumni.forEach(function(alumni){ %>
-        <div class="col-md-3 col-sm-6">
-            <div class="thumbnail">
-                <!-- <img src="<%= alumni.image %>"> -->
-                <img style="padding:8px 30px ; height: 150px; 20px;display: block;" src="<%= alumni.image %>"
-                    alt="Alumni image">
-                <div class="caption">
-                    <h4>
-                        <%= alumni.name %>
-                    </h4>
-                    <h5>
-                        <%= alumni.college %>
-                    </h5>
+                <div class="col-md-3 col-sm-6">
+                    <div class="thumbnail">
+                        <!-- <img src="<%= alumni.image %>"> -->
+                        <img style="padding:8px 30px ; height: 150px; 20px;display: block;" src="<%= alumni.image %>"
+                            alt="Alumni image">
+                        <div class="caption">
+                            <h4>
+                                <%= alumni.name %>
+                            </h4>
+                            <h5>
+                                <%= alumni.college %>
+                            </h5>
+                        </div>
+                        <p>
+                            <a href="/alumni/<%= alumni._id%>" class="btn btn-primary">More Info</a>
+                        </p>
+                    </div>
                 </div>
-                <p>
-                    <a href="/alumni/<%= alumni._id%>" class="btn btn-primary">More Info</a>
-                </p>
+                <% }); %>
             </div>
+    </div>
+    <div class="fb-page" data-href="https://www.facebook.com/nitpplacement/" data-tabs="timeline" data-width=""
+        data-height="" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false"
+        data-show-facepile="true">
+        <blockquote cite="https://www.facebook.com/nitpplacement/" class="fb-xfbml-parse-ignore"><a
+                href="https://www.facebook.com/nitpplacement/">NIT PATNA PLACEMENT UPDATES</a></blockquote>
+    </div>
+
+    <div id="particles-js">
+
+
+        </br>
+        </br>
+        </br>
+        <div id="abc">
+
         </div>
-        <% }); %>
+        <div>
+            <a class="twitter-timeline" data-tweet-limit="4" href="https://twitter.com/goa?lang=en"
+                data-widget-id="347008916514828288 data-tabs=" timeline" data-width="" data-height=""
+                data-small-header="false" data-adapt-container-width="true" data-hide-cover="false"
+                data-show-facepile="true"">Tweets by @Alumini</a>
     </div>
-</div>
-
-<div id="particles-js">
-
-
-    </br>
-    </br>
-    </br>
-    <div id="abc">
-
-    </div>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    
+    <script>
+        !function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0], p = /^http:/.test(d.location) ? 'http' : 'https';
+            if (!d.getElementById(id)) {
+                js = d.createElement(s);
+                js.id = id;
+                js.src = p + " ://platform.twitter.com/widgets.js"; fjs.parentNode.insertBefore(js, fjs);
+            }
+        }(document, "script", "twitter-wjs"); </script> <script
+                src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js">
+                </script>
     <script src="/js/script.js"></script>
 
-    <% include partials/footer %>
+</body>
+
+</html>
+
+<% include partials/footer %>
