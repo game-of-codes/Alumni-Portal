@@ -400,17 +400,12 @@ app.post("/alumni/:id/message", function (req, res) {
 
 //CREATE - add new alumni to database
 app.post("/alumni", isLoggedIn, function (req, res) {
-
-    //get data from form and add to thriftstore array
-
-
-    request('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAPzLdcKEPCe4SQf3-cdSnq5vmh_MRaHCs' +
+request('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAPzLdcKEPCe4SQf3-cdSnq5vmh_MRaHCs' +
         '&address=' + encodeURIComponent(req.body.address),
         function (error, response, body) {
             if (error) {
                 console.log('error!', error);
             } else {
-
                 var data = JSON.parse(body);
 
                 // console.log('data: ', util.inspect(data, { showHidden: false, depth: null }))
