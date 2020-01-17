@@ -295,7 +295,7 @@ app.get("/alumni/:id/email", function (req, res) {
             console.log(err);
         } else {
             //render show template with that campground
-            console.log(foundalumni);
+            //console.log(foundalumni);
             res.render("email", {
                 alumni: foundalumni
             });
@@ -407,6 +407,7 @@ request('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAPzLdcKEPCe
                 console.log('error!', error);
             } else {
                 var data = JSON.parse(body);
+                
 
                 // console.log('data: ', util.inspect(data, { showHidden: false, depth: null }))
 
@@ -426,7 +427,8 @@ request('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAPzLdcKEPCe
                         }
                     }
                 } else {
-                    var city = null,
+
+                var city = null,
                         state = null,
                         country = null;
                 }
@@ -455,7 +457,7 @@ request('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAPzLdcKEPCe
                     if (err) {
                         console.log(err);
                     } else {
-                        console.log(newlyCreated);
+                        
                         res.redirect("/alumni");
                     }
                 });
@@ -560,7 +562,7 @@ app.get("/register", function (req, res) {
 app.post("/register", function (req, res) {
 
     var newuser = new User({ username: req.body.username });
-
+    
     if (req.body.adminCode === 'alumniCollege123') {
         newuser.isAdmin = true;
     }
