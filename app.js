@@ -407,10 +407,7 @@ request('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAPzLdcKEPCe
                 console.log('error!', error);
             } else {
                 var data = JSON.parse(body);
-                
-
                 // console.log('data: ', util.inspect(data, { showHidden: false, depth: null }))
-
                 if (data.results && data.results[0] && ["address_components"]) {
                     var addressComponents = data.results[0]["address_components"]
                     for (var i = 0; i < addressComponents.length; i++) {
@@ -427,14 +424,13 @@ request('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAPzLdcKEPCe
                         }
                     }
                 } else {
-
                 var city = null,
                         state = null,
                         country = null;
                 }
-
                 var newalumni = {
-                    name: req.body.name,
+                    name: req.body.firstname,
+                    name2: req.body.lastname,
                     image: req.body.image,
                     branch: req.body.branch,
                     batch: req.body.batch,
@@ -446,18 +442,25 @@ request('https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyAPzLdcKEPCe
                     mobile: req.body.mobile,
                     email: req.body.email,
                     image: req.body.image,
-
                     author: {
                         id: req.user._id,
-                        username: req.user.username,
-                        name: req.user.name
+                        username: req.user.username
                     }
                 };
+                
                 Alumni.create(newalumni, function (err, newlyCreated) {
                     if (err) {
                         console.log(err);
                     } else {
-                        
+                        User.findByIdAndUpdate(
+                            { _id: req.user._id },
+                            { change: 2 },
+                            function(err, result) {
+                              if (err) {
+                                res.send(err);
+                              }
+                            }
+                          );
                         res.redirect("/alumni");
                     }
                 });
@@ -561,27 +564,32 @@ app.get("/register", function (req, res) {
 
 app.post("/register", function (req, res) {
 
-    var newuser = new User({ username: req.body.username });
-    
+    var newuser = new User({ 
+        username: req.body.username ,
+        firstname: req.body.firstname,
+        enrollment: req.body.enrollment,
+        change: 1
+        // avatar: req.body.avatar
+    });
     if (req.body.adminCode === 'alumniCollege123') {
         newuser.isAdmin = true;
     }
-
+    if((req.body.enrollment >= 180000 && req.body.enrollment <= 200000) || (req.body.adminCode === 'alumniCollege123')){
     User.register(newuser, req.body.password, function (err, user) {
         if (err) {
             console.log(err);
             return res.render("register");
-
         }
         passport.authenticate("local")(req, res, function () {
+            req.flash("success", "Successfully Signed Up! Nice to meet you ");
             res.redirect("/alumni");
-
- 
         });
-
     });
-
-
+}//if close
+else{
+    req.flash("error","Student not available in our database!");
+    res.redirect('register');
+}
 });
 
 //LOGIN routes

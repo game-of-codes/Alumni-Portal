@@ -1,38 +1,5 @@
 <% include partials/header %>
-
-    <!-- <h1>
-        <%=alumni.name%>
-    </h1>
-
-    <img src="<%=alumni.image%>">
-
-    <h2>
-        <%=alumni.batch%>
-    </h2>
-
-    <h2>
-        <%=alumni.college%>
-    </h2>
-
-    <h3>
-        <%=alumni.address%>
-    </h3>
-
-    <h3>
-        <%=alumni.branch%>
-    </h3> -->
-
-    <!-- <% if(currentUser && alumni.author.id.equals(currentUser._id) ) {%>
-        <a class="btn btn-warning" href="/alumni/<%=alumni._id%>/edit"> EDIT</a>
-        <form style="display: inline;" action="/alumni/<%= alumni._id%>?_method=DELETE" method="POST">
-            <button class="btn btn-danger">DELELTE</button>
-        </form>
-
-        <% } %> -->
-
-
-
-    <% if(alumni.address) { %>
+<% if(alumni.address) { %>
         <div class="col-md-3 thriftstore-location">
             <p><strong>Address:</strong><br>
                 <%= alumni.address %>
