@@ -764,9 +764,6 @@ var jobSchema = new mongoose.Schema({
 });
 var Job = mongoose.model("Job", jobSchema);
 
-
-<<<<<<< HEAD
-
 // INDEX ROUTE
 app.get("/jobs", function(req, res){
    Job.find({}, function(err, jobs){
@@ -776,17 +773,7 @@ app.get("/jobs", function(req, res){
           res.render("indexjob", {jobs: jobs}); 
        }
    });
-=======
-  
-//jobs 
-  const StartingContent ="Apply for jobs"; 
-  const jobSchema = new mongoose.Schema({
-      title:String,
-      content:String,
-      image:String
->>>>>>> 5f6ba5d410bfd10587602a74fbd0e30081d6469a
 });
-
 // NEW ROUTE
 app.get("/jobs/new", function(req, res){
     res.render("newjob");
@@ -945,7 +932,6 @@ app.put("/notices/:id", function(req, res){
    });
 });
 
-<<<<<<< HEAD
 // DELETE ROUTE
 app.delete("/notices/:id", function(req, res){
    //destroy notice
@@ -958,70 +944,9 @@ app.delete("/notices/:id", function(req, res){
    })
    //redirect somewhere
 });
-=======
-//events
-const StartContent ="Hacknitp-2.0"; 
-  const eventSchema = new mongoose.Schema({
-      title:String,
-      content:String
-});
-
-const Event = mongoose.model("Event",eventSchema);
-
-app.get("/eventcontent", function(req, res){
-    
-    Event.find({}, function (err, events) {
-    res.render("eventcontent", {
-    startingContent: StartContent,
-    events: events
-    });
-});
-});
-
-app.get("/eventbody", function(req, res){
-    res.render("eventbody");
-  });
-
-
-  app.post("/eventbody", function(req, res){
-  
-    const event = new Event ({
-      title: req.body.eventTitle,
-      content: req.body.eventBody
-    });
-  
-    event.save(function (err) {
-      if (!err) {
-        res.redirect("/eventcontent");
-      }
-    });
-  
-  });
-  
-  app.get("/events/:eventname", function (req, res) {
-  
-    Job.findOne({ _id: req.params.eventname }, function (err, job) {
-      res.render("job", {
-        title: job.title,
-        content: job.content
-      });
-    });
-  
-  });
-
->>>>>>> 5f6ba5d410bfd10587602a74fbd0e30081d6469a
-
-
-
 
 //end of notice routes
 
 const server = http.listen(8080, function() {
     console.log('listening on *:8080');
 });
-
-
-
-//  app.listen(3000, function () {
-//     console.log(" Jai Mata Di Alumni server has started!");
-// });
