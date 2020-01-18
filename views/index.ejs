@@ -23,10 +23,10 @@
                 </center>
                 <p></p>
 
-                <% if(currentUser && currentUser.name!==null){ %>
-                <p>
-                    <a class="btn btn-primary btn-large" href="/alumni">PROFILE UPDATED</a>
-                </p>
+                <% if(currentUser && currentUser.change != 1){ %>
+                <!-- <p>
+                    <a class="btn btn-primary btn-large" href="/alumni" disabled>PROFILE UPDATED</a>
+                </p> -->
 
                 <% } else{ %>
                 <p>
