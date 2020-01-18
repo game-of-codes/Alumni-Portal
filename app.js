@@ -647,6 +647,65 @@ io.sockets.on('connection', function(socket) {
 
 });
 
+
+
+//notice
+const homeStartingContent ="One year certification course-Data science and cyber"; 
+
+const postSchema = new mongoose.Schema({
+    title: String,
+    content: String
+  });
+  
+  const Post = mongoose.model("Post", postSchema);
+  
+  let posts = [];
+  
+  app.get("/notice", function(req, res){
+    
+      Post.find({}, function (err, posts) {
+      res.render("notice", {
+      startingContent: homeStartingContent,
+      posts: posts
+      });
+  });
+  });
+  
+  
+  app.get("/compose", function(req, res){
+    res.render("compose");
+  });
+  
+  app.post("/compose", function(req, res){
+  
+    const post = new Post ({
+      title: req.body.postTitle,
+      content: req.body.postBody
+    });
+  
+    post.save(function (err) {
+      if (!err) {
+        res.redirect("/notice");
+      }
+    });
+  
+  });
+  
+  app.get("/posts/:postname", function (req, res) {
+  
+    Post.findOne({ _id: req.params.postname }, function (err, post) {
+      res.render("post", {
+        title: post.title,
+        content: post.content
+      });
+    });
+  
+  });
+
+  
+
+
+
 const server = http.listen(8080, function() {
     console.log('listening on *:8080');
 });
