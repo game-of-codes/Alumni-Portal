@@ -752,115 +752,105 @@ io.sockets.on('connection', function(socket) {
 });
 
 
+//job routes
+app.use(expressSanitizer());
 
-//notice
-const homeStartingContent ="One year certification course-Data science and cyber"; 
-
-const postSchema = new mongoose.Schema({
+// MONGOOSE/MODEL CONFIG
+var jobSchema = new mongoose.Schema({
     title: String,
-    content: String,
+    joblink: String,
+    body: String,
+    created: {type: Date, default: Date.now}
+});
+var Job = mongoose.model("Job", jobSchema);
 
-  });
-  
-  const Post = mongoose.model("Post", postSchema);
-  
-  let posts = [];
-  
-  app.get("/notice", function(req, res){
-    
-      Post.find({}, function (err, posts) {
-      res.render("notice", {
-      startingContent: homeStartingContent,
-      posts: posts
-      });
-  });
-  });
-  
-  
-  app.get("/compose", function(req, res){
-    res.render("compose");
-  });
-  
-  app.post("/compose", function(req, res){
-  
-    const post = new Post ({
-      title: req.body.postTitle,
-      content: req.body.postBody,
+
+
+// INDEX ROUTE
+app.get("/jobs", function(req, res){
+   Job.find({}, function(err, jobs){
+       if(err){
+           console.log("ERROR!");
+       } else {
+          res.render("indexjob", {jobs: jobs}); 
+       }
+   });
+});
+
+// NEW ROUTE
+app.get("/jobs/new", function(req, res){
+    res.render("newjob");
+});
+
+// CREATE ROUTE
+app.post("/jobs", function(req, res){
+    // create job
+    console.log(req.body);
+    req.body.job.body= req.sanitize(req.body.job.body)
+    console.log("===========")
+    console.log(req.body);
+    Job.create(req.body.job, function(err, newJob){
+        if(err){
+            res.render("newjob");
+        } else {
+            //then, redirect to the index
+            res.redirect("/jobs");
+        }
     });
-  
-    post.save(function (err) {
-      if (!err) {
-        res.redirect("/notice");
+});
+
+// SHOW ROUTE
+app.get("/jobs/:id", function(req, res){
+   Job.findById(req.params.id, function(err, foundJob){
+       if(err){
+           res.redirect("/jobs");
+       } else {
+           res.render("showjob", {job: foundJob});
+       }
+   })
+});
+
+// EDIT ROUTE
+app.get("/jobs/:id/edit", function(req, res){
+    Job.findById(req.params.id, function(err, foundJob){
+        if(err){
+            res.redirect("/jobs");
+        } else {
+            res.render("editjob", {job: foundJob});
+        }
+    });
+})
+
+
+// UPDATE ROUTE
+app.put("/jobs/:id", function(req, res){
+    req.body.job.body = req.sanitize(req.body.job.body)
+   Job.findByIdAndUpdate(req.params.id, req.body.job, function(err, updatedJob){
+      if(err){
+          res.redirect("/jobs");
+      }  else {
+          res.redirect("/jobs/" + req.params.id);
       }
-    });
-  
-  });
-  
-  app.get("/posts/:postname", function (req, res) {
-  
-    Post.findOne({ _id: req.params.postname }, function (err, post) {
-      res.render("post", {
-        title: post.title,
-        content: post.content
-      });
-    });
-  
-  });
-
-  
-  
-  //jobs 
-  const StartingContent ="Apply for jobs"; 
-  const jobSchema = new mongoose.Schema({
-      title:String,
-      content:String,
-      image:String
+   });
 });
 
-const Job = mongoose.model("Job",jobSchema);
-
-app.get("/jobcontent", function(req, res){
-    
-    Job.find({}, function (err, jobs) {
-    res.render("jobcontent", {
-    startingContent: StartingContent,
-    jobs: jobs
-    });
+// DELETE ROUTE
+app.delete("/jobs/:id", function(req, res){
+   //destroy job
+   Job.findByIdAndRemove(req.params.id, function(err){
+       if(err){
+           res.redirect("/jobs");
+       } else {
+           res.redirect("/jobs");
+       }
+   })
+   //redirect somewhere
 });
-});
-
-app.get("/jobbody", function(req, res){
-    res.render("jobbody");
-  });
 
 
-  app.post("/jobbody", function(req, res){
-  
-    const job = new Job ({
-      title: req.body.jobTitle,
-      content: req.body.jobBody,
-      image:req.body.jobImage
-    });
-  
-    job.save(function (err) {
-      if (!err) {
-        res.redirect("/jobcontent");
-      }
-    });
-  
-  });
-  
-  app.get("/jobs/:jobname", function (req, res) {
-  
-    Job.findOne({ _id: req.params.jobname }, function (err, job) {
-      res.render("job", {
-        title: job.title,
-        content: job.content,
-        image:job.image
-      });
-    });
-  
-  });
+
+
+//end of blog routes
 
 
 
