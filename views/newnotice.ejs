@@ -1,0 +1,21 @@
+<% include partials/header1 %>
+<div class="ui main text container segment">
+    <div class="ui huge header">New Notice</div>
+    <form class="ui form" action="/notices" method="POST">
+        <div class="field">
+            <label>Title</label>
+            <input type="text" name="notice[title]" placeholder="title">
+        </div>
+        <div class="field">
+            <label>Image</label>
+            <input type="text" name="notice[image]" placeholder="Notice Link">
+        </div>
+        <div class="field">
+            <label>Notice Content</label>
+            <textarea name="notice[body]"></textarea>
+        </div>
+        <input class="ui violet big basic button" type="submit">
+    </form>
+</div>
+<% include partials/footer %>
+

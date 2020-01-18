@@ -1,23 +1,23 @@
 <% include partials/header1 %>
 
 <div class="ui main text container">
-    <div class="ui huge header">Available Jobs</div>
+    <div class="ui huge header">Available Notices</div>
     
-   <li><a class="ui orange basic button" href="/jobs/new">Create New Job</a></li> <br>
+   <li><a class="ui orange basic button" href="/notices/new">Create New Notice</a></li> <br>
     <div class="ui top  attached segment">
         <div class="ui divided items">
-            <% jobs.forEach(function(job){ %>
+            <% notices.forEach(function(notice){ %>
                 <div class="item">
                     <div class="image">
-                        <img class="ui centered rounded image" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRaxvSPe1JbRfQ3nqKSEBpU_CzKqJKS_pPgMO4WiPwUr5BbHLnf&s" >
+                        <img class="ui centered rounded image" src="https://spiderimg.amarujala.com/assets/images/2018/12/29/750x506/notice_1546053546.jpeg" >
                     </div>
                     <div class="content">
-                         <a class="header" href="/jobs/<%= job._id %>"><%=job.title%></a>
+                         <a class="header" href="/notices/<%= notice._id %>"><%=notice.title%></a>
                          <div class="meta">
-                             <span><%= job.created.toDateString() %></span>
+                             <span><%= notice.created.toDateString() %></span>
                          </div>
                          <div class="extra">
-                             <a class="ui floated basic violet button" href="/jobs/<%= job._id %>">
+                             <a class="ui floated basic violet button" href="/notices/<%= notice._id %>">
                                  Read More
                                  <i class="right chevron icon"></i>
                              </a>

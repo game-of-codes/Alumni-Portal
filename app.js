@@ -850,70 +850,113 @@ app.delete("/jobs/:id", function(req, res){
 
 
 
-//end of blog routes
+//end of job routes
 
 
-//events
-const StartContent ="Hacknitp-2.0"; 
-  const eventSchema = new mongoose.Schema({
-      title:String,
-      content:String
+//notice routes
+app.use(expressSanitizer());
+
+// MONGOOSE/MODEL CONFIG
+var noticeSchema = new mongoose.Schema({
+    title: String,
+    noticelink: String,
+    body: String,
+    created: {type: Date, default: Date.now}
+});
+var Notice = mongoose.model("Notice", noticeSchema);
+
+
+
+// INDEX ROUTE
+app.get("/notices", function(req, res){
+   Notice.find({}, function(err, notices){
+       if(err){
+           console.log("ERROR!");
+       } else {
+          res.render("indexnotice", {notices: notices}); 
+       }
+   });
 });
 
-const Event = mongoose.model("Event",eventSchema);
+// NEW ROUTE
+app.get("/notices/new", function(req, res){
+    res.render("newnotice");
+});
 
-app.get("/eventcontent", function(req, res){
-    
-    Event.find({}, function (err, events) {
-    res.render("eventcontent", {
-    startingContent: StartContent,
-    events: events
+// CREATE ROUTE
+app.post("/notices", function(req, res){
+    // create notice
+    console.log(req.body);
+    req.body.notice.body= req.sanitize(req.body.notice.body)
+    console.log("===========")
+    console.log(req.body);
+    Notice.create(req.body.notice, function(err, newNotice){
+        if(err){
+            res.render("newnotnotice");
+        } else {
+            //then, redirect to the index
+            res.redirect("/notices");
+        }
     });
 });
+
+// SHOW ROUTE
+app.get("/notices/:id", function(req, res){
+   Job.findById(req.params.id, function(err, foundNotice){
+       if(err){
+           res.redirect("/notices");
+       } else {
+           res.render("shownotice", {notice: foundNotice});
+       }
+   })
 });
 
-app.get("/eventbody", function(req, res){
-    res.render("eventbody");
-  });
-
-
-  app.post("/eventbody", function(req, res){
-  
-    const event = new Event ({
-      title: req.body.eventTitle,
-      content: req.body.eventBody
+// EDIT ROUTE
+app.get("/notices/:id/edit", function(req, res){
+    Notice.findById(req.params.id, function(err, foundNotice){
+        if(err){
+            res.redirect("/notices");
+        } else {
+            res.render("editnotice", {notice: foundNotice});
+        }
     });
-  
-    event.save(function (err) {
-      if (!err) {
-        res.redirect("/eventcontent");
+})
+
+
+// UPDATE ROUTE
+app.put("/notices/:id", function(req, res){
+    req.body.notice.body = req.sanitize(req.body.notice.body)
+   Notice.findByIdAndUpdate(req.params.id, req.body.notice, function(err, updatedNotice){
+      if(err){
+          res.redirect("/notices");
+      }  else {
+          res.redirect("/notices/" + req.params.id);
       }
-    });
-  
-  });
-  
-  app.get("/events/:eventname", function (req, res) {
-  
-    Job.findOne({ _id: req.params.eventname }, function (err, job) {
-      res.render("job", {
-        title: job.title,
-        content: job.content
-      });
-    });
-  
-  });
+   });
+});
+
+// DELETE ROUTE
+app.delete("/notices/:id", function(req, res){
+   //destroy notice
+   Notice.findByIdAndRemove(req.params.id, function(err){
+       if(err){
+           res.redirect("/notices");
+       } else {
+           res.redirect("/notices");
+       }
+   })
+   //redirect somewhere
+});
 
 
 
 
-
+//end of notice routes
 
 const server = http.listen(8080, function() {
     console.log('listening on *:8080');
 });
 
-
-//end chat routes
 
 
 //  app.listen(3000, function () {
