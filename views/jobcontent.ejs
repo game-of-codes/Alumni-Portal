@@ -1,0 +1,14 @@
+<h1>Jobs</h1>
+    <p> <%= startingContent %> </p>
+
+  <%  jobs.forEach(function(job){ %>
+
+    <h1><%=job.title%></h1>
+    <p>
+        <%=job.content%>
+    </p>
+    <h1><a href=<%="job.image"%>></h1>
+    
+    <% }) %>
+
+

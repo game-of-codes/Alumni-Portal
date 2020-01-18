@@ -1,0 +1,15 @@
+<%- include("partials/header"); -%>
+    <h1>Jobs</h1>
+    <form class="" action="/jobbody" method="post">
+      <div class="form-group">
+        <label>Job-Title</label>
+        <input class="form-control" type="text" name="jobTitle">
+        <label>Job-Decription</label>
+        <textarea class="form-control" name="jobBody" rows="5" cols="30"></textarea>
+        <label>Job-Link</label>
+        <input class="form-control" type="String" name="jobImage" placeholder="image link">
+      </div>
+      <button class="btn btn-primary" type="submit" name="button">Post</button>
+    </form>
+
+<%- include("partials/footer"); -%>
