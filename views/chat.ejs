@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Simple Group Chat on Node.js</title>
+    <title>Group Chat</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font: 13px Helvetica, Arial; }
-        form { background: #fff; padding: 3px; position: fixed; bottom: 0; width: 100%; border-color: #000; border-top-style: solid; border-top-width: 1px;}
+        body { font: 14px Helvetica, Arial;background:black;}
+        form { background: #fff; padding: 5px; position: fixed; bottom: 0; width: 100%; border-color: #000; border-top-style: solid; border-top-width: 1px;}
         form input { border-style: solid; border-width: 1px; padding: 10px; width: 85%; margin-right: .5%; }
         form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; margin-left: 2%; }
         #messages { list-style-type: none; margin: 0; padding: 0; }
-        #messages li { padding: 5px 10px; }
-        #messages li:nth-child(odd) { background: #eee; }
+        #messages li {     padding: 11px 73px; }
+        #messages li:nth-child(even){margin-top:20px;float: right;width:max-content;color:white; background-color:blue;border-radius: 25px 0 0 25px;}
+        #messages li:nth-child(odd) {margin-top:20px;width:max-content;color:white; background-color:rgb(250, 152, 0);border-radius: 0 25px 25px 0;}
     </style>
     <script src="../../socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
