@@ -1,0 +1,10 @@
+<h1>Events</h1>
+    <p> <%= startingContent %> </p>
+
+  <%  events.forEach(function(event){ %>
+
+    <h1><%=event.title%></h1>
+    <p>
+        <%=event.content%>
+    </p>
+    <% }) %>

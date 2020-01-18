@@ -853,6 +853,56 @@ app.delete("/jobs/:id", function(req, res){
 //end of blog routes
 
 
+//events
+const StartContent ="Hacknitp-2.0"; 
+  const eventSchema = new mongoose.Schema({
+      title:String,
+      content:String
+});
+
+const Event = mongoose.model("Event",eventSchema);
+
+app.get("/eventcontent", function(req, res){
+    
+    Event.find({}, function (err, events) {
+    res.render("eventcontent", {
+    startingContent: StartContent,
+    events: events
+    });
+});
+});
+
+app.get("/eventbody", function(req, res){
+    res.render("eventbody");
+  });
+
+
+  app.post("/eventbody", function(req, res){
+  
+    const event = new Event ({
+      title: req.body.eventTitle,
+      content: req.body.eventBody
+    });
+  
+    event.save(function (err) {
+      if (!err) {
+        res.redirect("/eventcontent");
+      }
+    });
+  
+  });
+  
+  app.get("/events/:eventname", function (req, res) {
+  
+    Job.findOne({ _id: req.params.eventname }, function (err, job) {
+      res.render("job", {
+        title: job.title,
+        content: job.content
+      });
+    });
+  
+  });
+
 
 
 
