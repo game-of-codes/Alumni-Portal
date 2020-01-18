@@ -758,7 +758,8 @@ const homeStartingContent ="One year certification course-Data science and cyber
 
 const postSchema = new mongoose.Schema({
     title: String,
-    content: String
+    content: String,
+
   });
   
   const Post = mongoose.model("Post", postSchema);
@@ -784,7 +785,7 @@ const postSchema = new mongoose.Schema({
   
     const post = new Post ({
       title: req.body.postTitle,
-      content: req.body.postBody
+      content: req.body.postBody,
     });
   
     post.save(function (err) {
@@ -807,6 +808,63 @@ const postSchema = new mongoose.Schema({
   });
 
   
+  
+  //jobs 
+  const StartingContent ="Apply for jobs"; 
+  const jobSchema = new mongoose.Schema({
+      title:String,
+      content:String,
+      image:String
+});
+
+const Job = mongoose.model("Job",jobSchema);
+
+app.get("/jobcontent", function(req, res){
+    
+    Job.find({}, function (err, jobs) {
+    res.render("jobcontent", {
+    startingContent: StartingContent,
+    jobs: jobs
+    });
+});
+});
+
+app.get("/jobbody", function(req, res){
+    res.render("jobbody");
+  });
+
+
+  app.post("/jobbody", function(req, res){
+  
+    const job = new Job ({
+      title: req.body.jobTitle,
+      content: req.body.jobBody,
+      image:req.body.jobImage
+    });
+  
+    job.save(function (err) {
+      if (!err) {
+        res.redirect("/jobcontent");
+      }
+    });
+  
+  });
+  
+  app.get("/jobs/:jobname", function (req, res) {
+  
+    Job.findOne({ _id: req.params.jobname }, function (err, job) {
+      res.render("job", {
+        title: job.title,
+        content: job.content,
+        image:job.image
+      });
+    });
+  
+  });
+
+
+
+
 
 
 
