@@ -94,63 +94,90 @@ height:25.8rem;
 }
 
 .updates{
-position:relative;
-/* top:5rem; */
-background-color:#3e69ab;
+  position:relative;
+  top:0rem;
+  background-color:#cce0ff;
 }
 .alumni-box{
-height:23rem;
-margin:1rem 2rem 1rem 15rem;
+
+    margin:1rem 1.5rem 1rem 14.5rem;
 }
-.create-update{
-height:20rem;
-margin:1rem 1rem 1rem 14rem;
+.event{
+  margin:1rem 1rem 1rem 14rem;
 }
-.update-box{
-height:28rem;
-margin:1rem 14rem 1rem 1rem;
+.job{
+  margin:1rem 1rem 1rem 14rem;
+}
+.update-box, .gallery{
+  height:28rem;
+  margin:1rem 14rem 1rem 1rem;
 }
 .card:hover{
-box-shadow: 10px 10px 11px rgba(33,33,33,1);
+    box-shadow: 1px 1px 11px rgba(33,33,33,0.5);
 }
-.cheader{
-background-color:#ffd9b3;
+ .cheader{
+  /* background-color:#ffd9b3; */
 }
 .aluimg{
-height:50%;
-width:50%;
-margin-top:3%;
-margin-left:25%;
-border-radius:50%;
+  height:15rem;
+  width:50%;
+  margin-top:3%;
+  margin-left:25%;
+  border-radius:50%;
 }
-
+.date{
+  border-right:1px solid white;
+   text-align:right;
+   padding-top:0.5rem;
+}
+.month{
+  text-align:left;
+}
+.job-title:hover{
+    text-decoration:underline;
+}
+.job-des{
+    font-size:0.9rem;
+}
 @media (max-width:1200px)and (min-width:991px){
-.alumni-box, .create-update{
-  margin:1rem 1rem 1rem 7rem;
-}
-.update-box{
-margin:1rem 7rem 1rem 1rem ;
-}
+  .alumni-box, .job, .event{
+      margin:1rem 1rem 1rem 7rem;
+  }
+  .update-box, .gallery{
+    margin:1rem 7rem 1rem 1rem ;
+  }
 }
 @media (max-width:991px)and (min-width:767px){
-.update-box, .alumni-box, .create-update{
-  margin:1rem 27% 1rem 27%;
-}
+  .update-box, .alumni-box, .job, .event, .gallery{
+      margin:1rem 27% 1rem 27%;
+  }
 }
 @media (max-width:767px) and (min-width:520px){
-.update-box, .alumni-box, .create-update{
-  margin:1rem 19% 1rem 19%;
-}
+  .update-box, .alumni-box, .job, .event, .gallery{
+      margin:1rem 19% 1rem 19%;
+  }
 }
 @media (max-width:520px){
-.update-box, .alumni-box, .create-update{
-  margin:1rem 1.5% 1rem 1.5%;
-}
+  .update-box, .alumni-box, .gallery, .event, .job{
+      margin:1rem 1.5% 1rem 1.5%;
+  }
 }
 
+
 .bottom{
-position:relative;
-top:7.5rem;
-height:50%;
-width:100%;
+  position:relative;
+  top:0 rem;
+  width:100%;
+}
+.ro{
+    padding:0% 5% 5% 5%;
+    color:#ffd9b3;
+}
+.bot{
+    text-align:center;
+}
+.sha{
+    position:relative;
+    top:0.3rem;
+    font-size:2rem;
 }
