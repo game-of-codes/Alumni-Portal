@@ -567,25 +567,29 @@ app.post("/register", function (req, res) {
     var newuser = new User({ 
         username: req.body.username ,
         firstname: req.body.firstname,
+        enrollment: req.body.enrollment,
         change: 1
         // avatar: req.body.avatar
     });
-    console.log("lets see");
-    console.log(req.user);
     if (req.body.adminCode === 'alumniCollege123') {
         newuser.isAdmin = true;
     }
-
+    if((req.body.enrollment >= 180000 && req.body.enrollment <= 200000) || (req.body.adminCode === 'alumniCollege123')){
     User.register(newuser, req.body.password, function (err, user) {
         if (err) {
             console.log(err);
             return res.render("register");
         }
         passport.authenticate("local")(req, res, function () {
-            req.flash("success", "Successfully Signed Up! Nice to meet you " + req.body.firstname);
-            res.redirect("/");
+            req.flash("success", "Successfully Signed Up! Nice to meet you ");
+            res.redirect("/alumni");
         });
     });
+}//if close
+else{
+    req.flash("error","Student not available in our database!");
+    res.redirect('register');
+}
 });
 
 //LOGIN routes
