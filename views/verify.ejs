@@ -1,4 +1,4 @@
-<%- include("partials/header"); -%>
+
 
 
 <html>
@@ -22,9 +22,13 @@
         });
     </script>
     <style>
-        #container {
-            margin-left: 400px;
-            margin-top: 50px;
+        .container {
+            /*margin-top:225px;*/
+            /*position:absolute;*/
+            display:flex;
+            position:relative;
+            top:225px;
+            flex-direction:column;
         }
 
         #to,
@@ -46,19 +50,38 @@
         }
 
         #send_email {
+            /*position:absolute;*/
+            /*left:50%;*/
             font-size: 15px;
+            /*outline:none;*/
             font-family: "Segoe UI";
+            border-radius:25px;
+            background:black;
+            color:white;
+            width:max-content;
+            /*padding:10px;*/
+            padding:5px 25px 5px 25px;
+        }
+        input{
+            outline:none;
+        }
+        input:focus{
+            border:2px solid black;
         }
 
         #message {
             font-size: 18px;
         }
+        input{
+          padding:7.5px;
+          border-radius:25px;
+        }
     </style>
 </head>
 
 <body>
-    <div id="container">
-        <h1>Email-verification System in Node.js</h1>
+    <div class="container">
+        <h1>Email-verification System</h1>
         <input type="text" id="to" placeholder="Enter E-mail which you want to verify"><br>
         <button id="send_email">Send Email</button><br>
         <span id="message"></span>
@@ -66,5 +89,3 @@
 </body>
 
 </html>
-
-<%- include("partials/footer"); -%>
