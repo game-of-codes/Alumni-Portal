@@ -767,7 +767,7 @@ app.post("/login", passport.authenticate("local", {
 app.get("/logout", function (req, res) {
     req.logout();
     req.flash("success", "Logged you out!");
-    res.redirect("/alumni");
+    res.redirect("/");
 })
 
 
