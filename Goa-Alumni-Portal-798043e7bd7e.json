@@ -1,0 +1,12 @@
+{
+    "type": "service_account",
+    "project_id": "goa-alumni-portal-ijrafl",
+    "private_key_id": "798043e7bd7e507ccb0a8e1ce2965558942d1c97",
+    "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDGV18VxFfUDSIf\nuZvWK6o6VWok7XTVe5k7ZNiDYH6qrcKkJAwKKtafLbAXy1MmtdQosdCPLNbNydCR\nBTE7dSTusTrKDcavnh3d99V0PpbtxTxrI17+Q3xc8jzu1q8tc/Ngbms337ViyFJS\nagGRJh/EhSEoDiLLvcoyFu+q7JSNcxHB8Pe3PsxHDKLgdgtC5vXqkFsxGEmk2n0a\n+jmXI7ih89lQmlIpBT+JJGW3tblCyisk+veLVoeG3Fk9sGr1IxqqafCiEj+zisHk\nOEi4POsoPps0cs7/dMEeWPFsm+Q4WeMdZy05FwJBL2GFoPFF4lZl2ZXfGsnKYe4z\n18IwgguRAgMBAAECggEAUroIj+SoGWss63yYUjk+NDyCHErqq0x1Oj+yywFJc9kr\n0Riz6N27TQNaamJFGWVHy313FvDF22ms04AN69XNhL1pXvNmBsP1gyqm3mhovV3B\n+JH1QipVydLDtX7X7CZrwbHsiI6Hcl9JbtSGOMtk/qvki3dx7fcISeIlLu6ke2Zi\naiICEaXc4CORNaotEcpt1xJAZN6UShMRxBmfO9SdNLgSjRIQ/1WlLIoQJRF+s4+v\nimEX1R6BzrQr8En5rQK1Ji8bnNP05OdnM396E1SjnmRWgikzjYvCyFtFrIOgtUCd\n1hljiczminaorr+suOxSrF0CqRATTGTsBdCQ4HxR7QKBgQDkDyXhdueWb0td78rK\n5TFQGzuqyT1lBZzGcmlrXAs/20EFNDYo2ozIev4rDE5PWPX6Mik8bi2SNnRV5iMF\n2JTGZVCohdCzpNUFFa5BHxx75qS+4wyj7vPJJADQH8n4/X773NO/MXnI0Y4oXHUA\nFjFSrIRjK3vy0eISzd9Adduv4wKBgQDepCbDBBNhzax8BkfJBkoSeHeK1L7VS1fw\nE064lVwPiQ28HZ8nEua+8QL//EbL7g7wTKLAryvCWKN6AVO0hRjXGDVjiFN5j/UX\nudOBGunYRzrelsxuMBSgxG2FJTYdroqYXwLOHaMfDPbzo3XNPJsTUfFrjFhOcHBE\n8CsvaGSI+wKBgQCu/cyUPzeeX9GVx7x0iP6Yt/zFpFqenHrabsnjHiJnoiY3BwQT\nvvbNkkpa37tq+RjtHPY1L1l6WpxTmR4Ai1pFDVKhrOQiI/VsTGGECIpDrAt3iSKW\n23BmQ2D4UZwZmPGJ8rzrdNw8skcBQ0hng5/fDw8aRTB7dn6g7SVEAetK/wKBgHzC\nF0ZoXkQL8H9/NXKcJ526C6KsHFOBaMGK0C325COAdUXYg3ptyQduHnQ7daCIwa4+\nA2Vdw3OgH9saK0GY45aEZkZj+gLAfGLTKoXKAwfCwmZAskV8g9Kiv4xAkdaIG/nO\nI9BEI0gfB7L3AegD8hIddN8DQeiScRbwTgK+yLdJAoGAdHYehY7MmJDjcG5d2eZ2\n30Wqd8jwL/hXmMGlLC133EARqiI7Jl+PhJzVcM4MtNmJqti6rEFeQRIJX0A+4Wdr\nnCmqfxthWAwkG8zdFZYJ7M36InG4LHg8Kxk2LgOFhu/vYOA9rmVt/RUhxPcDwANw\ng/Nv9VGeXKBc4D+ut8rjRgM=\n-----END PRIVATE KEY-----\n",
+    "client_email": "dialogflow-wnjvuc@goa-alumni-portal-ijrafl.iam.gserviceaccount.com",
+    "client_id": "101727121988850457575",
+    "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+    "token_uri": "https://oauth2.googleapis.com/token",
+    "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+    "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/dialogflow-wnjvuc%40goa-alumni-portal-ijrafl.iam.gserviceaccount.com"
+  }
