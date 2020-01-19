@@ -1,5 +1,6 @@
 {
   "name": "alumni-tracking",
+  "name": "email-node",
   "version": "1.0.0",
   "description": "Alumini-tracking-portal",
   "main": "app.js",

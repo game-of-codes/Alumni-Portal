@@ -16,6 +16,17 @@ var express = require("express"),
     const io = require('socket.io')(http);
 var config = require('./config/config.js');
 var client = new twilio(config.twilio.accountSid, config.twilio.authToken);
+
+var smtpTransport = nodemailer.createTransport({
+    service: "Gmail",
+    auth: {
+        user: "testing.sih.web@gmail.com",
+        pass: "theteam@1234"
+    }
+});
+var rand, mailOptions, host, link;
+
+
 //change
 const pug = require('pug');
 const _ = require('lodash');
@@ -686,7 +697,7 @@ app.post("/register", function (req, res) {
         }
         passport.authenticate("local")(req, res, function () {
             req.flash("success", "Successfully Signed Up! Nice to meet you ");
-            res.redirect("/alumni");
+            res.render("verify");
         });
     });
 }//if close
@@ -694,6 +705,46 @@ else{
     req.flash("error","Student not available in our database!");
     res.redirect('register');
 }
+});
+
+app.get('/send', function (req, res) {
+    rand = Math.floor((Math.random() * 100) + 54);
+    host = req.get('host');
+    link = "http://" + req.get('host') + "/verify?id=" + rand;
+    mailOptions = {
+        to: req.query.to,
+        subject: "Please confirm your Email account",
+        html: "Hello,<br> Please Click on the link to verify your email.<br><a href=" + link + ">Click here to verify</a>"
+    }
+    console.log(mailOptions);
+    smtpTransport.sendMail(mailOptions, function (error, response) {
+        if (error) {
+            console.log(error);
+            res.end("error");
+        } else {
+            console.log("Message sent: " + response.message);
+            res.end("sent");
+        }
+    });
+});
+
+app.get('/verify', function (req, res) {
+    console.log(req.protocol + ":/" + req.get('host'));
+    if ((req.protocol + "://" + req.get('host')) == ("http://" + host)) {
+        console.log("Domain is matched. Information is from Authentic email");
+        if (req.query.id == rand) {
+            console.log("email is verified");
+
+            res.redirect("/alumni");
+        }
+        else {
+            console.log("email is not verified");
+            res.end("<h1>Bad Request</h1>");
+        }
+    }
+    else {
+        res.end("<h1>Request is from unknown source");
+    }
 });
 
 //LOGIN routes
