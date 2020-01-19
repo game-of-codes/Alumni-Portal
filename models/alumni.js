@@ -2,6 +2,7 @@ var mongoose = require("mongoose");
 
 var alumniSchema = new mongoose.Schema({
     name: String,
+    name2: String,
     author: {
         id: {
             type: mongoose.Schema.Types.ObjectId,

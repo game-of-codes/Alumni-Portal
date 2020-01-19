@@ -11,7 +11,7 @@ config.mlab = {
 };
 
 
-config.port = 3000;
+config.port = 8080;
 config.address = "Bihar, Patna";
 
 module.exports = config;

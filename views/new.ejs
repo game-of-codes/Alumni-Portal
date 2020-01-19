@@ -1,4 +1,6 @@
-<% include partials/header %>
+<% include ./partials/header %>
+<html>
+    <body>
 
     <div class="container">
         <div class="row">
@@ -6,14 +8,13 @@
             <div style="width: 30%; margin: 30px auto;">
                 <form action="/alumni" method="POST">
                     <div class="form-group">
-                        <input class="form-control" type="text" name="name" placeholder="name">
+                        <input class="form-control" type="text" name="firstname" placeholder="First Name">
                     </div>
-                    <!-- <div class="form-group">
-                        <input class="form-control" type="text" name="image" placeholder="image url">
-                    </div> -->
-
                     <div class="form-group">
-                        <input class="form-control" type="text" name="college" placeholder="college">
+                        <input class="form-control" type="text" name="lastname" placeholder="Last Name">
+                    </div>
+                    <div class="form-group">
+                        <input class="form-control" type="String" name="image" placeholder="image link">
                     </div>
 
                     <div class="form-group">
@@ -34,16 +35,66 @@
                     <div class="form-group">
                         <input class="form-control" type="text" name="address" placeholder="address">
                     </div>
+                    <!-- <div class="form-group">
+                        <input class="form-control" type="text" name="college_name" id="state" placeholder="address">
+                    </div> -->
+                    <!-- <div class="form-group"></div>
+                        <select class="form-control" id="state" name="college_name">
+                        </select>
+                    </div> -->
+                        <div class="form-group">
+                        <label for="state">College Name *</label><br>
+                        <select class="form-control" id="sel" name="college" onchange="selectText(this)">
+                            <option value="">-- Select College --</option>
+                            <option value="NIT GOA">NIT GOA</option>
+                            <option value="IIT GOA">IIT GOA</option>
+                            <option value="GOA COLLEGE OF ENGINEERING">GOA COLLEGE OF ENGINEERING</option>
+                            <option value="GOA UNIVERSITY">GOA UNIVERSITY</option>
+                        </select>
+                        <p id='msg'>
+                        </p>
+                        </select>
+                    </div><br>
 
                     <div class="form-group">
                         <button class="btn btn-lg btn-primary btn-block">Submit!</button>
                     </div>
 
-
+                
                 </form>
                 <a href="/alumni">Go Back</a>
             </div>
 
         </div>
     </div>
-    <% include partials/footer %>
+   <!-- <script>
+    $('.type').html(type + ' ');
+        $('.subtype').html(" " + sub_type);
+        $('[name="type"]').val(type);
+        $('[name="sub_type"]').val(sub_type);
+
+    $.getJSON('./State_City.json', function (data) {
+    data.forEach((college) => {
+    $('#state').append(`<option value='${college.colege}'>${college.colege}</option>`)
+    
+    });
+    });
+    </script>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="/js/script.js"></script> -->
+
+    <script>
+        let selectText = (ele) => {
+            let msg = document.getElementById('msg');
+            msg.innerHTML = 'Selected College: <b>' + ele.options[ele.selectedIndex].text + '</b> </br>' 
+        }
+    </script>
+
+    </body>
+
+    </html>
+
+<% include ./partials/footer %>
+
+    
+    

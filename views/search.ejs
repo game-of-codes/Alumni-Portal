@@ -9,10 +9,19 @@
                         <input class="form-control" type="text" name="name" placeholder="name">
                     </div>
 
-
                     <div class="form-group">
-                        <input class="form-control" type="text" name="college" placeholder="college">
-                    </div>
+                        <label for="state">College Name *</label><br>
+                        <select class="form-control" id="sel" name="college" onchange="selectText(this)">
+                            <option value="">-- Select College --</option>
+                            <option value="NIT GOA">NIT GOA</option>
+                            <option value="IIT GOA">IIT GOA</option>
+                            <option value="GOA COLLEGE OF ENGINEERING">GOA COLLEGE OF ENGINEERING</option>
+                            <option value="GOA UNIVERSITY">GOA UNIVERSITY</option>
+                        </select>
+                        <p id='msg'>
+                        </p>
+                        </select>
+                    </div><br>
 
                     <div class="form-group">
                         <input class="form-control" type="text" name="branch" placeholder="branch">

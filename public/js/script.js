@@ -11,15 +11,15 @@
 //           }
 //       } else if (e.type === 'blur') {
 //           if( $this.val() === '' ) {
-//               label.removeClass('active highlight'); 
+//               label.removeClass('active highlight');
 //               } else {
-//               label.removeClass('highlight');   
-//               }   
+//               label.removeClass('highlight');
+//               }
 //       } else if (e.type === 'focus') {
 
 //         if( $this.val() === '' ) {
-//               label.removeClass('highlight'); 
-//               } 
+//               label.removeClass('highlight');
+//               }
 //         else if( $this.val() !== '' ) {
 //               label.addClass('highlight');
 //               }
@@ -46,7 +46,7 @@
 particlesJS("particles-js", {
     "particles": {
         "number": {
-            "value": 380,
+            "value": 125,
             "density": {
                 "enable": true,
                 "value_area": 800
@@ -62,7 +62,7 @@ particlesJS("particles-js", {
                 "color": "#000000"
             },
             "polygon": {
-                "nb_sides": 5
+                "nb_sides": 1
             },
             "image": {
                 "src": "img/github.svg",
@@ -143,12 +143,7 @@ particlesJS("particles-js", {
                 "distance": 200,
                 "duration": 0.4
             },
-            "push": {
-                "particles_nb": 4
-            },
-            "remove": {
-                "particles_nb": 2
-            }
+
         }
     },
     "retina_detect": true
