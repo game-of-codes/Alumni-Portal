@@ -734,7 +734,7 @@ app.get('/verify', function (req, res) {
         console.log("Domain is matched. Information is from Authentic email");
         if (req.query.id == rand) {
             console.log("email is verified");
-
+             alert("verification link is sent to your email!! verify and login")
             res.redirect("/alumni");
         }
         else {
